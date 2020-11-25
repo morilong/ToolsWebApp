@@ -1,0 +1,95 @@
+﻿@using Haooyou.Tool.WebApp.Models
+@{
+    Layout = "~/Views/Shared/_LayoutCommon.cshtml";
+
+    ViewBag.Title = "正则表达式测试";
+    ViewBag.ContentTitle = ViewBag.Title;
+}
+@section HeadCss{<link href="~/Content/css/regex.css" rel="stylesheet" />}
+<div class="row clearfix row-match">
+    <div class="col-xs-12 column">
+        <button class="btn btn-primary" id="btnMatch">匹配</button>
+        <button class="btn btn-primary" id="btnReplace">替换</button>
+        <div class="checkbox">
+            <label><input type="checkbox" id="chkIgnoreCase" />忽略大小写</label>
+            <label><input type="checkbox" id="chkMultiline" />多行模式</label>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-xs-12 column col-pattern">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">正则表达式</h3>
+            </div>
+            <div class="panel-body">
+                <textarea class="form-control" id="txtPattern" placeholder="这里输入正则表达式，按下（Ctrl + Enter）匹配。"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 column col-replace">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">替换为</h3>
+            </div>
+            <div class="panel-body">
+                <textarea class="form-control" id="txtReplace" placeholder="这里输入要替换的文本"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-xs-6 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">源文本</h3>
+            </div>
+            <div class="panel-body">
+                <textarea class="form-control" id="txtSource" placeholder="这里输入源文本，要搜索匹配项的内容。"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">结果</h3>
+            </div>
+            <div class="panel-body" id="matchResult">
+                <!--显示匹配结果-->
+            </div>
+        </div>
+    </div>
+</div>
+@section FootJs{
+    <script src="~/Content/js/jquery.cookie.js"></script>
+    <script src="~/Content/js/regex.js"></script>
+    <script type="text/javascript">
+        function saveConfig() {
+            setCookie("@CookieConsts.RegexIgnoreCase", $("#chkIgnoreCase").prop("checked"));
+            setCookie("@CookieConsts.RegexMultiline", $("#chkMultiline").prop("checked"));
+            setCookie("@CookieConsts.RegexPattern", $("#txtPattern").val());
+            setCookie("@CookieConsts.RegexReplace", $("#txtReplace").val());
+            var source = $("#txtSource").val();
+            if (source.length < 1000) {
+                setCookie("@CookieConsts.RegexSource", source);
+            }
+        }
+
+        $(function () {
+            $("#chkIgnoreCase").prop("checked", $.cookie("@CookieConsts.RegexIgnoreCase") == "true");
+            $("#chkMultiline").prop("checked", $.cookie("@CookieConsts.RegexMultiline") == "true");
+            $("#txtPattern").val($.cookie("@CookieConsts.RegexPattern"));
+            $("#txtReplace").val($.cookie("@CookieConsts.RegexReplace"));
+            $("#txtSource").val($.cookie("@CookieConsts.RegexSource"));
+
+            bindEvent();
+
+            $("#chkIgnoreCase").click(function () {
+                setCookie("@CookieConsts.RegexIgnoreCase", $("#chkIgnoreCase").prop("checked"));
+            });
+            $("#chkMultiline").click(function () {
+                setCookie("@CookieConsts.RegexMultiline", $("#chkMultiline").prop("checked"));
+            });
+        });
+    </script>
+}

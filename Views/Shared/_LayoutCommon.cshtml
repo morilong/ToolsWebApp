@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@(ViewBag.Title)_好优工具</title>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+    <!--[if lte IE 6]>
+    <link href="~/Content/Bootstrap/css/bootstrap-ie6.min.css" rel="stylesheet" />
+    <link href="~/Content/Bootstrap/css/ie.css" rel="stylesheet" />
+    <![endif]-->
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    @RenderSection("HeadCss", false)
+    <!--[if lt IE 9]>
+    <script src="~/Content/Bootstrap/js/respond.min.js"></script>
+    <script src="~/Content/Bootstrap/js/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div><a href="/"><img src="~/Content/img/logo.png" alt="好优工具" title="好优工具" /></a></div>
+            <div class="header-title">@ViewBag.ContentTitle
+                @if (ViewBag.ShowJiaocheng != null && ViewBag.ShowJiaocheng)
+                {
+                    <span><a class="header-jiaocheng" data-toggle="modal" data-target="#myModal">使用教程</a></span>
+                }
+            </div>
+        </div>
+        @RenderBody()
+        @if (ViewBag.ShowBrowserInfo != null && ViewBag.ShowBrowserInfo && Request.Browser.Browser.Equals("IE", StringComparison.OrdinalIgnoreCase))
+        {
+            <div class="browser" id="browser">
+                <p class="browser-info">
+                    <b>友情提醒：</b>您的浏览器输入数据过多可能会卡死！推荐使用火狐、谷歌、搜狗或360的极速模式，处理上亿行数据无压力。
+                </p>
+            </div>
+        }
+        <div style="height: 20px"></div>
+        <footer class="footer">
+            <div align="center">
+                <p><span>&copy; Company 2016</span><span><a href="/">首页</a></span>@RenderSection("FooterLinks", false)</p>
+            </div>
+        </footer>
+    </div>
+    @if (ViewBag.ShowJiaocheng != null && ViewBag.ShowJiaocheng)
+    {
+    <!-- modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">@ViewBag.ContentTitle 使用教程</h4>
+                    </div>
+                    <div class="modal-body">
+                        @RenderSection("JiaochengBody", false)
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+        </div>
+    <!-- / modal -->
+    }
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!--[if lte IE 6]>
+        <script src="~/Content/Bootstrap/js/bootstrap-ie.js"></script>
+    <![endif]-->
+    <script src="~/Content/Bootstrap/js/jquery.placeholder.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('input, textarea').placeholder();
+        });
+    </script>
+    @RenderSection("FootJs", false)
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿
+/* Space out content a bit */
+body {
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+/* Customize container */
+@media (min-width: 960px) {
+    .container {
+        max-width: 830px;
+    }
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.footer {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* Custom page header */
+.header {
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.header-title {
+    line-height: 40px;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: -40px;
+}
+
+.header-jiaocheng {
+    padding-left: 10px;
+    cursor: pointer;
+    font-size: 15px; 
+    font-weight: normal;
+}
+
+/* Custom page footer */
+.footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+}
+
+    .footer div p span {
+        padding: 3px;
+    }
+
+.browser {
+    margin-top: 10px;
+    margin-bottom: -15px;
+}
+
+.browser-info {
+    color: #FF6600;
+    text-align: center;
+}

@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCommon.cshtml";
+
+    ViewBag.Title = "文本行去重复";
+    ViewBag.ContentTitle = "文本行去重复";
+    ViewBag.ShowBrowserInfo = true;
+}
+@section HeadCss{
+    <link href="~/Content/css/id.css" rel="stylesheet" />
+    <style type="text/css">
+        textarea {
+            width: 250px !important;
+        }
+
+        .btn {
+            width: 150px;
+        }
+
+    </style>
+}
+<form action="/str/down" method="POST" onsubmit="return downCheck(2);">
+    <div class="content" align="center">
+        <input type="checkbox" id="chkDelCfh" />&nbsp;不要重复行
+        <span><button type="button" class="btn btn-primary" id="btnUnique">去重复</button></span>
+        <span><button type="submit" class="btn btn-default">保存去重复后数据</button></span>
+        <table>
+            <tr>
+                <td>
+                    <textarea class="form-control" wrap="off" id="txtData1" placeholder="这里输入需要去重复的文本行"></textarea>
+                </td>
+                <td>
+                    <textarea class="form-control" wrap="off" id="txtData2" placeholder="这里显示去重复后的数据" name="data"></textarea>
+                </td>
+                <td>
+                    <textarea class="form-control" rows="22" wrap="off" id="txtData3" name="data" placeholder="这里显示重复的数据"></textarea>
+                </td>
+            </tr>
+            <tr align="center">
+                <td>原数据个数：<input class="txtNum" id="txtNum1" value="0"/></td>
+                <td>去重复后个数：<input class="txtNum" id="txtNum2" value="0" name="num"/></td>
+                <td>重复个数：<input class="txtNum" id="txtNum3" value="0"/></td>
+            </tr>
+        </table>
+    </div>
+</form>
+@section FootJs
+{
+    <script src="~/Content/js/str.js"></script>
+    <script src="~/Content/js/str-qcf.js"></script>
+}
+@section FooterLinks{
+    <span><a href="/str">文本处理工具</a></span>
+}

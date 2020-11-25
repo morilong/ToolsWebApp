@@ -1,0 +1,183 @@
+﻿@using Haooyou.Tool.WebApp.Models
+@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutCommon.cshtml";
+
+    ViewBag.Title = "南宁新房按揭计算器 置业计划表生成 置业计划计算器";
+    ViewBag.ContentTitle = "南宁新房按揭计算器";
+}
+@section HeadCss{
+    <style>
+         .content {
+             width: 1000px;
+         }
+
+        .form-control {
+            width: 300px;
+        }
+
+        #txtName {
+            width: 500px;
+        }
+
+        #btnSum {
+            margin-left: 170px;
+        }
+
+        table {
+            table-layout: fixed;
+        }
+
+        th {
+            width: 20%;
+            text-align: center;
+        }
+        .control-label {
+            padding-right: 0px;
+        }
+    </style>
+}
+
+<form method="POST" class="form-horizontal" id="formSum" onclick="return false;">
+    <div class="content">
+        <div class="form-group">
+            <label for="txtName" class="col-sm-2 control-label">楼盘名称：</label>
+            <div class="col-sm-3"><input type="text" class="form-control" id="txtName" name="Name" placeholder="楼盘名称或备注，可空"></div>
+        </div>
+        <div class="form-group">
+            <label for="txtArea" class="col-sm-2 control-label">建筑面积：</label>
+            <div class="col-sm-3"><input type="text" class="form-control" id="txtArea" name="Area" placeholder="建筑面积，必填"></div>
+            @*<div class="col-sm-4"> <span class="help-block">㎡</span></div>*@
+        </div>
+        <div class="form-group">
+            <label for="txtPrice" class="col-sm-2 control-label">建筑单价(毛坯)：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtPrice" name="Price" placeholder="毛坯部分的价格，必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtDownPayRatio" class="col-sm-2 control-label">首付款?%(毛坯)：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtDownPayRatio" name="DownPayRatio" placeholder="毛坯部分的按揭首付款百分比，必填" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtLoansYear" class="col-sm-2 control-label">按揭年数(毛坯)：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtLoansYear" name="LoansYear" placeholder="毛坯部分的按揭贷款年数，必填" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtRateRise" class="col-sm-2 control-label">利率上浮%(毛坯)：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtRateRise" name="RateRise" placeholder="毛坯部分的贷款利率上浮百分比，必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtPriceZx" class="col-sm-2 control-label">建筑单价(装修)：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtPriceZx" name="PriceZx" placeholder="精装部分的价格，可空">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtDownPayRatioZx" class="col-sm-2 control-label">首付款?%(装修)：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtDownPayRatioZx" name="DownPayRatioZx" placeholder="精装部分的按揭首付款百分比，可空">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtLoansYearZx" class="col-sm-2 control-label">按揭年数(装修)：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtLoansYearZx" name="LoansYearZx" placeholder="精装部分的按揭贷款年数，可空">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtRateRiseZx" class="col-sm-2 control-label">利率上浮%(装修)：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtRateRiseZx" name="RateRiseZx" placeholder="精装部分的贷款利率上浮百分比，可空">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cmbLoansRound" class="col-sm-2 control-label">贷款金额取整：</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="cmbLoansRound" name="LoansRound">
+                    <option value="1000">000</option>
+                    <option value="10000">0000</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtZwjPrice" class="col-sm-2 control-label">公维金(?元/㎡)：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtZwjPrice" name="ZwjPrice" placeholder="专项维修基金 ?元/㎡，可空" value="77">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtWaiShou" class="col-sm-2 control-label">外收?元：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtWaiShou" name="WaiShou" placeholder="如：团购费、指标费。可空">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtOtherFee" class="col-sm-2 control-label">其他费用?元：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtOtherFee" name="OtherFee" placeholder="如：印花税、不动产登记。可空">
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="btnSum">生成计划表</button>
+        </div>
+    </div>
+</form>
+
+<div style="width: 450px;" id="divSumResult">
+</div>
+
+@section FootJs{
+    <script src="~/Content/js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        $("#btnSum").click(function () {
+            var postData = $("#formSum").serialize();
+            $.post("/buyhouse/getSumHtml", postData, function (data) {
+                if (data.code === 1) {
+                    $("#divSumResult").html(data.Html);
+                    setCookieByName("DownPayRatio");
+                    setCookieByName("LoansYear");
+                    setCookieByName("RateRise");
+                    setCookieByName("ZwjPrice");
+                    setCookie("LoansRound", $("#cmbLoansRound").val());
+                } else {
+                    alert(data.msg);
+                }
+            });
+        });
+
+        readCookie("DownPayRatio");
+        readCookie("LoansYear");
+        readCookie("RateRise");
+        readCookie("ZwjPrice");
+        var loansRound = $.cookie("LoansRound");
+        if (loansRound > 0) {
+            $("#cmbLoansRound").val(loansRound);
+        }
+
+        function setCookieByName(name) {
+            $("input[name^='" + name + "']").each(function (i, obj) {
+                setCookie(obj.name, $(obj).val());
+            });
+        }
+
+        function readCookie(name) {
+            $("input[name^='" + name + "']").each(function (i, obj) {
+                var value = $.cookie(obj.name);
+                if (value > 0) {
+                    $(obj).val(value);
+                }
+            });
+        }
+
+        function setCookie(key, value) {
+            $.cookie(key, value, { expires: 365 });
+        }
+    </script>
+}

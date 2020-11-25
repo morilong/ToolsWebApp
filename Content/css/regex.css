@@ -1,0 +1,46 @@
+﻿.container {
+    max-width: 90% !important;
+}
+
+.column {
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+.panel-default {
+    margin-bottom: 5px;
+}
+
+.panel-body {
+    padding: 0;
+}
+
+#txtPattern, #txtReplace {
+    height: 100px;
+}
+
+#txtSource, #matchResult, #txtResult {
+    height: 300px;
+}
+
+.btn {
+    width: 100px;
+    margin-left: 1px;
+    margin-right: 10px;
+}
+
+.checkbox {
+    display: inline;
+}
+
+    .checkbox label {
+        margin-right: 10px;
+    }
+
+.row-match {
+    margin-bottom: 6px;
+}
+
+.col-replace {
+    display: none;
+}

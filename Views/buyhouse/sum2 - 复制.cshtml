@@ -1,0 +1,96 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutCommon.cshtml";
+
+    ViewBag.Title = "置业计划表生成结果";
+    ViewBag.ContentTitle = ViewBag.Title;
+}
+@section HeadCss{
+    <style>
+        table {
+            table-layout: fixed;
+        }
+        th {
+            width: 20%;
+            text-align: center;
+        }
+    </style>
+}
+<div style="width: 450px;">
+    <table class="table table-bordered">
+        <tr>
+            <th>楼盘名称</th>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <th>建筑面积</th>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <th></th>
+            <th>毛坯部分</th>
+            <th>装修部分</th>
+            <th>合计</th>
+        </tr>
+        <tr>
+            <th>建筑单价</th>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>总价</th>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>贷款</th>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>首付款</th>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>月供</th>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>利息</th>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>还款总额</th>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>总价+利息</th>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>专维金</th>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <th>其他费用</th>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <th>首付预算</th>
+            <td colspan="3"></td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,234 @@
+﻿@using Haooyou.Tool.WebApp.Models
+@using Haooyou.Tool.WebApp.Utility
+@{
+    Layout = "~/Views/Shared/_LayoutCommon.cshtml";
+
+    var type = Request.QueryString["type"] != null ? Request.QueryString["type"].ToEnum<EndeTypes>() : EndeTypes.None;
+    var action = Request.QueryString["action"];
+
+    var charset = Request.QueryString["charset"];
+    if (charset.IsNullOrEmpty())
+    {
+        charset = CodeHelper.GetDefaultCharset(type, Request.Cookies[CookieConsts.CodeCharset]);
+    }
+
+    var title = "编码转换/加密解密工具";
+    var tempContentTitle = CodeHelper.GetContentTitle(type, action, string.Format("（{0}）", charset));
+    ViewBag.ContentTitle = tempContentTitle ?? title;
+
+    ViewBag.Title = ViewBag.ContentTitle + (ViewBag.ContentTitle != title ? "_" + title : "");
+}
+@section HeadCss{
+    <link href="~/Content/css/code.css" rel="stylesheet" />
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div>
+            <textarea class="form-control" id="txtData1" placeholder="这个输入需要处理的内容，按下（Ctrl + Enter）执行。"></textarea>
+        </div>
+        <nav class="navbar navbar-default" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="dropdown" id="@EndeGroups.ende">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">编码解码<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.ende, EndeTypes.urlencode, "en", charset)">@EndeConsts.UrlEn</a>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.ende, EndeTypes.urlencode,"de", charset)">@EndeConsts.UrlDe</a>
+                        </li>
+                        <li class="divider">
+                        </li>
+                        <li>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.ende, EndeTypes.base64, "en", charset)">@EndeConsts.Base64En</a>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.ende, EndeTypes.base64, "de", charset)">@EndeConsts.Base64De</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.ende, EndeTypes.escape, "en")">@EndeConsts.EscapeEn</a>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.ende, EndeTypes.escape, "de")">@EndeConsts.EscapeDe</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown" id="@EndeGroups.convert">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">编码转换<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.convert, EndeTypes.gb2312ToUtf8)">@EndeConsts.GB2312ToUTF8</a>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.convert, EndeTypes.utf8ToGb2312)">@EndeConsts.UTF8ToGB2312</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.convert, EndeTypes.asciiToUnicode)">@EndeConsts.AsciiToUnicode</a>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.convert, EndeTypes.unicodeToAscii)">@EndeConsts.UnicodeToAscii</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.convert, EndeTypes.strToHex, "", charset)">@EndeConsts.StrToHex</a>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.convert, EndeTypes.hexToStr, "", charset)">@EndeConsts.HexToStr</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.convert, EndeTypes.strTobytes,"",charset)">@EndeConsts.StrToBytes</a>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.convert, EndeTypes.bytesToStr,"",charset)">@EndeConsts.BytesToStr</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown" id="@EndeGroups.hash">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">散列/哈希<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.hash, EndeTypes.md5,"",charset)">@EndeConsts.GetMd5</a>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.hash, EndeTypes.sha1,"",charset)">@EndeConsts.GetSHA1</a>
+                            <a href="@CodeHelper.GetUrl(EndeGroups.hash, EndeTypes.crc32,"",charset)">@EndeConsts.GetCRC32</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" id="jiaohuan">交换</a>
+                </li>
+                @if (CodeHelper.NeedCharset(type))
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><input id="txtCharset" value="@charset" />&nbsp;&nbsp;<strong class="caret"></strong></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#" id="csUtf8">@EndeCharset.UTF8</a>
+                                <a href="#" id="csGb2312">@EndeCharset.GB2312</a>
+                                @if (type == EndeTypes.strToHex || type == EndeTypes.hexToStr || type == EndeTypes.strTobytes || type == EndeTypes.bytesToStr)
+                                {
+                                    <a href="#" id="csUnicode">@EndeCharset.Unicode</a>
+                                }
+                            </li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+            <button type="button" class="btn btn-primary navbar-btn" id="btnExecute">执行</button>
+        </nav>
+        <div>
+            <textarea class="form-control" id="txtData2" placeholder="这里显示处理结果"></textarea>
+        </div>
+    </div>
+</div>
+@section FootJs{
+    <script src="~/Content/js/jquery.cookie.js"></script>
+    <script src="~/Content/js/crypto.min.js"></script>
+    <script src="~/Content/js/code.js"></script>
+    <script type="text/javascript">
+        function fnSaveData1() {
+            var data1 = getData1();
+            if (data1.length < 3000) {
+                setCookie("@CookieConsts.CodeData1", data1);
+            }
+        }
+        function setCookieCodeCharset(value) {
+            setCookie("@CookieConsts.CodeCharset", value);
+        }
+
+        //编码解码
+        function fnEnde() {
+            var type = $.queryString("type");
+            var ende = CodeEnDe;
+            ende.action = $.queryString("action");
+            ende.data1 = getData1();
+            if (type == "@EndeTypes.urlencode") {
+                if ($("#txtCharset").val() == "@EndeCharset.GB2312") {
+                    ende.url_gb2312();
+                } else {
+                    ende.url_utf8();
+                }
+            }
+            else if (type == "@EndeTypes.base64") {
+                if (ende.action == "de" && !checkBase64De()) {
+                    return;
+                }
+                if ($("#txtCharset").val() == "@EndeCharset.GB2312") {
+                    ende.base64_gb2312();
+                } else {
+                    ende.base64_utf8();
+                }
+            }
+            else if (type == "@EndeTypes.escape") {
+                ende.escape();
+            }
+        }
+        //编码转换
+        function fnConvert() {
+            var type = $.queryString("type");
+            var conver = CodeConvert;
+            conver.data1 = getData1();
+            if (type == "@EndeTypes.gb2312ToUtf8" || type == "@EndeTypes.utf8ToGb2312") {
+                conver.post(type);
+            }
+            if (type == "@EndeTypes.asciiToUnicode" || type == "@EndeTypes.unicodeToAscii") {
+                if (type == "@EndeTypes.asciiToUnicode") {
+                    conver.asciiToUnicode();
+                }
+                else if (type == "@EndeTypes.unicodeToAscii") {
+                    conver.unicodeToAscii();
+                }
+            }
+            if (type == "@EndeTypes.strToHex" || type == "@EndeTypes.hexToStr" || type == "@EndeTypes.strTobytes" || type == "@EndeTypes.bytesToStr") {
+                if (type == "@EndeTypes.hexToStr") {
+                    if (!checkHexToStr()) {
+                        return;
+                    }
+                    conver.data1 = conver.data1.replace(/-/g, "");
+                }
+                if (type == "@EndeTypes.bytesToStr" && !checkBytesToStr()) {
+                    return;
+                }
+                conver.post(type, $("#txtCharset").val());
+            }
+        }
+        //散列/哈希
+        function fnHash() {
+            var type = $.queryString("type");
+            var charset = $("#txtCharset").val();
+            var hash = CodeHash;
+            hash.data1 = getData1();
+            if (type == "@EndeTypes.md5") {
+                if (charset == "@EndeCharset.UTF8") {
+                    setData2($.md5(hash.data1));
+                }
+                else if (charset == "@EndeCharset.GB2312") {
+                    hash.post("MD5");
+                }
+            } else if (type == "@EndeTypes.sha1") {
+                if (charset == "@EndeCharset.UTF8") {
+                    setData2($.sha1(hash.data1));
+                }
+                else if (charset == "@EndeCharset.GB2312") {
+                    hash.post("SHA1");
+                }
+            }
+            else if (type == "@EndeTypes.crc32") {
+                if (charset == "@EndeCharset.UTF8") {
+                    setData2(crc32_hex(hash.data1));
+                }
+                else if (charset == "@EndeCharset.GB2312") {
+                    hash.post("CRC32");
+                }
+            }
+        }
+
+        $(function () {
+            var lastThis = $("#@EndeGroups.ende");
+            //根据url参数激活导航选中项
+            var group = $.queryString("group");
+            if (group == "@EndeGroups.ende") {
+                $(lastThis).removeClass("active");
+                $("#@EndeGroups.ende").addClass("active");
+            } else if (group == "@EndeGroups.convert") {
+                $(lastThis).removeClass("active");
+                $("#@EndeGroups.convert").addClass("active");
+            } else if (group == "@EndeGroups.hash") {
+                $(lastThis).removeClass("active");
+                $("#@EndeGroups.hash").addClass("active");
+            }
+
+            setData1($.cookie("@CookieConsts.CodeData1"));
+
+            bindEvent();
+        });
+    </script>
+}

@@ -1,0 +1,37 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "文本处理工具";
+    Layout = "~/Views/Shared/_LayoutCommon.cshtml";
+}
+@section HeadCss{
+    <style type="text/css">
+        .container {
+            width: 450px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+         .content {
+            margin-top: 50px;
+        }
+
+        .content p a {
+            width: 200px;
+            font-size: 18px;
+        }
+    </style>
+}
+<div class="content">
+    <p>
+        <a class="btn btn-primary" href="/str/qcf">文本行去重复</a>
+    </p>
+    <p>
+        <a class="btn btn-primary" href="/str/daluan">文本行打乱</a>
+    </p>
+    <p>
+        <a class="btn btn-primary" href="/str/zh">账号格式转换</a>
+    </p>
+    <p>
+        <a class="btn btn-primary" href="/str/hb">账号合并</a>
+    </p>
+</div>

@@ -1,0 +1,41 @@
+﻿.btn {
+    width: 125px;
+}
+
+tr td {
+    padding: 5px;
+}
+
+td span {
+    white-space: nowrap;
+}
+
+textarea {
+    height: 350px !important;
+}
+
+.txtNum {
+    width: 100px !important;
+    color: red;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px;
+}
+
+.content {
+    padding: 5px;
+}
+
+    .content table {
+        margin-top: 10px;
+    }
+
+    .content span input {
+        width: 140px;
+        height: 30px;
+    }
+
+    .content span {
+        padding-left: 15px;
+    }
