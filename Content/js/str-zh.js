@@ -1,4 +1,4 @@
-﻿$(function () {
+$(function () {
     var f1 = $.cookie("zh_format1");
     if (f1 != null && f1.length > 0) {
         $("#txtFormat1").val(f1);
@@ -44,12 +44,12 @@ function format2NoFgf(dataLines, regFgf1, index2) {
 $("#btnConvert").click(function () {
     var fgf1 = getAllFgf($("#txtFormat1").val());
     if (fgf1.length == 0) {
-        alert("原账号格式输入错误，获取分割符失败。");
+        alert("原文本格式输入错误，获取分割符失败。");
         return;
     }
     var data = $.trim($("#txtData1").val());
     if (data.length == 0) {
-        alert("请填写待转换的账号！");
+        alert("请填写待转换的文本！");
         $("#txtData1").focus();
         return;
     }
