@@ -1,4 +1,4 @@
-﻿@model dynamic
+@model dynamic
 @{
     Layout = "~/Views/Shared/_LayoutCommon.cshtml";
 
@@ -17,26 +17,24 @@
         }
     </style>
 }
-<form action="/str/down" method="POST" onsubmit="return downCheck(2);">
-    <div class="content" align="center">
-        <span><button type="button" class="btn btn-primary" id="btnUpset">打乱</button></span>
-        <span><button type="submit" class="btn btn-default">保存打乱后账号</button></span>
-        <table>
-            <tr>
-                <td>
-                    <textarea class="form-control" wrap="off" id="txtData1" placeholder="这里输入需要打乱的文本行"></textarea>
-                </td>
-                <td>
-                    <textarea class="form-control" wrap="off" id="txtData2" placeholder="这里显示打乱后的数据" name="data"></textarea>
-                </td>
-            </tr>
-            <tr align="center">
-                <td>打乱前个数：<input class="txtNum" id="txtNum1" value="0" /></td>
-                <td>打乱后个数：<input class="txtNum" id="txtNum2" value="0" name="num" /></td>
-            </tr>
-        </table>
-    </div>
-</form>
+<div class="content" align="center">
+    <span><button type="button" class="btn btn-primary" id="btnUpset">打乱</button></span>
+    @*<span><button type="submit" class="btn btn-default">保存打乱后文本</button></span>*@
+    <table>
+        <tr>
+            <td>
+                <textarea class="form-control" wrap="off" id="txtData1" placeholder="这里输入需要打乱的文本行"></textarea>
+            </td>
+            <td>
+                <textarea class="form-control" wrap="off" id="txtData2" placeholder="这里显示打乱后的数据" name="data"></textarea>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>打乱前个数：<input class="txtNum" id="txtNum1" value="0" /></td>
+            <td>打乱后个数：<input class="txtNum" id="txtNum2" value="0" name="num" /></td>
+        </tr>
+    </table>
+</div>
 @section FootJs{
     <script src="~/Content/js/str.js"></script>
     <script src="~/Content/js/str-daluan.js"></script>
