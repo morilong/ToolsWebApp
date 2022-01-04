@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>查询街日_好优工具</title>
+    <style type="text/css">
+        input {
+            width: 60px;
+        }
+
+        button {
+            width: 65px;
+        }
+
+        #pQuery {
+            padding-left: 26px;
+        }
+
+        #pResult {
+            padding-left: 26px;
+            color: #0000ff;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="query">
+        <p>请输入要查询的年/月/日：</p>
+        <p>
+            年：<input type="text" id="txtYear" value="2020" />
+        </p>
+        <p>
+            月：<input type="text" id="txtMonth" value="" />
+        </p>
+        <p>
+            日：<input type="text" id="txtDay" value="" />
+        </p>
+        <p id="pQuery">
+            <button id="btnQuery">查询</button>
+        </p>
+        <p id="pResult">
+        </p>
+    </div>
+
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $("#btnQuery").click(function () {
+            $("#pResult").html("");
+            var year = $("#txtYear").val();
+            var month = $("#txtMonth").val();
+            var day = $("#txtDay").val();
+            if (year <= 0 || month <= 0 || day <= 0) {
+                alert("年/月/日 格式有误，请重新输入！");
+                return;
+            }
+            $("#pResult").html("查询中...");
+            var url = "/other/GetJieRiApiEx?year=" + year + "&month=" + month + "&day=" + day;
+            $.get(url, function (data) {
+                $("#pResult").html(data);
+            });
+        });
+    </script>
+</body>
+</html>

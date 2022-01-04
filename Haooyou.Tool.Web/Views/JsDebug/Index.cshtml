@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCommon.cshtml";
+
+    ViewBag.Title = "JavaScript代码调试_JavaScript在线调试";
+    ViewBag.ContentTitle = "JavaScript代码调试";
+}
+@section HeadCss{
+    <link href="~/Content/css/jsdebug.css" rel="stylesheet" />
+}
+<div class="row clearfix">
+    <div class="col-xs-12 column">
+        <textarea class="form-control" id="txtCode" placeholder="这里输入JavaScript代码"></textarea>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-xs-12 column">
+        <div class="form-runcode">
+            <button class="btn btn-primary" id="btnLoadCode">加载代码</button>
+        </div>
+        <div class="form-runcode">
+            函数列表
+        </div>
+        <div class="form-runcode form-func-select">
+            <select class="form-control" id="cmbFuncs"></select>
+        </div>
+        <div class="form-runcode form-func-name">
+            <input type="text" class="form-control" id="txtFunc" />
+        </div>
+        <div class="form-runcode">
+            <button class="btn btn-primary" id="btnDoFunc">执行函数</button>
+        </div>
+        <div class="form-runcode">
+            <button class="btn btn-primary" id="btnFormat">格式化</button>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-xs-12 column">
+        <textarea class="form-control" id="txtResult" placeholder="这里显示执行结果"></textarea>
+    </div>
+</div>
+@section FootJs{
+    <script src="~/Content/js/jsbeautify.js"></script>
+    <script src="~/Content/js/jsdebug.js"></script>
+}

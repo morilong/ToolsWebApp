@@ -1,0 +1,33 @@
+﻿.container {
+    max-width: 95% !important;
+}
+
+.btn-primary {
+    width: 90px !important;
+}
+
+#txtCode {
+    height: 300px;
+}
+
+#txtResult {
+    height: 150px;
+}
+
+.form-runcode {
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.form-func-name {
+    width: 50%;
+    margin-bottom: -11px;
+}
+
+.form-func-select {
+    margin-left: -5px;
+}
+
+.column {
+    padding-bottom: 5px;
+}

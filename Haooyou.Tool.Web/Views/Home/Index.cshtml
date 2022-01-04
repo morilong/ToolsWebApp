@@ -1,0 +1,92 @@
+﻿@using Haooyou.Tool.Web.Models
+@{
+    Layout = "~/Views/Shared/_LayoutCommon.cshtml";
+    ViewBag.Title = "好优工具";
+}
+@section HeadCss{
+    <style type="text/css">
+        .container {
+            max-width: 700px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header-title {
+            margin-top: 0;
+        }
+
+        .panel-body span {
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a href="/code">编码转换/加密解密工具</a>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    <span><a href="/code?group=@EndeGroups.ende&type=@EndeTypes.urlencode&action=en">@EndeConsts.UrlEn</a></span>
+                    <span><a href="/code?group=@EndeGroups.ende&type=@EndeTypes.urlencode&action=de">@EndeConsts.UrlDe</a></span>
+                    <span>|</span>
+                    <span><a href="/code?group=@EndeGroups.ende&type=@EndeTypes.base64&action=en">@EndeConsts.Base64En</a></span>
+                    <span><a href="/code?group=@EndeGroups.ende&type=@EndeTypes.base64&action=de">@EndeConsts.Base64De</a></span>
+                    <span>|</span>
+                    <span><a href="/code?group=@EndeGroups.ende&type=@EndeTypes.escape&action=en">@EndeConsts.EscapeEn</a></span>
+                    <span><a href="/code?group=@EndeGroups.ende&type=@EndeTypes.escape&action=de">@EndeConsts.EscapeDe</a></span>
+                </p>
+                <p>
+                    <span><a href="/code?group=@EndeGroups.convert&type=@EndeTypes.gb2312ToUtf8">@EndeConsts.GB2312ToUTF8</a></span>
+                    <span><a href="/code?group=@EndeGroups.convert&type=@EndeTypes.utf8ToGb2312">@EndeConsts.UTF8ToGB2312</a></span>
+                    <span>|</span>
+                    <span><a href="/code?group=@EndeGroups.convert&type=@EndeTypes.asciiToUnicode">@EndeConsts.AsciiToUnicode</a></span>
+                    <span><a href="/code?group=@EndeGroups.convert&type=@EndeTypes.unicodeToAscii">@EndeConsts.UnicodeToAscii</a></span>
+                </p>
+                <p>
+                    <span><a href="/code?group=@EndeGroups.convert&type=@EndeTypes.strToHex">@EndeConsts.StrToHex</a></span>
+                    <span><a href="/code?group=@EndeGroups.convert&type=@EndeTypes.hexToStr">@EndeConsts.HexToStr</a></span>
+                    <span>|</span>
+                    <span><a href="/code?group=@EndeGroups.convert&type=@EndeTypes.strTobytes">@EndeConsts.StrToBytes</a></span>
+                    <span><a href="/code?group=@EndeGroups.convert&type=@EndeTypes.bytesToStr">@EndeConsts.BytesToStr</a></span>
+                </p>
+                <p>
+                    <span><a href="/code?group=@EndeGroups.hash&type=@EndeTypes.md5">取MD5</a></span>
+                    <span><a href="/code?group=@EndeGroups.hash&type=@EndeTypes.sha1">取SHA1</a></span>
+                    <span><a href="/code?group=@EndeGroups.hash&type=@EndeTypes.crc32">取CRC32</a></span>
+                </p>
+            </div>
+        </div><!--/panel-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a href="/str">文本处理工具</a>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <span><a href="/str/qcf">文本行去重复</a></span>
+                <span><a href="/str/daluan">文本行打乱</a></span>
+                <span><a href="/str/zh">文本格式转换</a></span>
+                <span><a href="/str/hb">文本合并</a></span>
+            </div>
+        </div><!--/panel-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    实用工具
+                </h3>
+            </div>
+            <div class="panel-body">
+                <span><a href="/regex">正则表达式测试</a></span>
+                <span><a href="/jsdebug">JavaScript代码调试</a></span>
+            </div>
+        </div><!--/panel-->
+    </div>
+</div>
+

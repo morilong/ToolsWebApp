@@ -1,0 +1,131 @@
+﻿@{
+    var currentPath = Html.ViewContext.HttpContext.Request.Path.Value ?? "";
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="wb:webmaster" content="40f2d4294e913652" />
+    <title>@(ViewBag.Title)_好优工具</title>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+    <!--[if lte IE 6]>
+    <link href="~/Content/Bootstrap/css/bootstrap-ie6.min.css" rel="stylesheet" />
+    <link href="~/Content/Bootstrap/css/ie.css" rel="stylesheet" />
+    <![endif]-->
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    @RenderSection("HeadCss", false)
+    <!--[if lt IE 9]>
+    <script src="~/Content/Bootstrap/js/respond.min.js"></script>
+    <script src="~/Content/Bootstrap/js/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container">
+        <div id="divAdText" style="padding-left: 50px; ">
+	    @*<div style="padding-bottom: 8px; color: blue;  font-size: 18px;">
+	        <span style="font-weight: bold; font-size: 17px; color: green">友情广告：</span>软件开发定制&nbsp;&nbsp;¥100起！
+	        <a target="_blank" href="/Content/img/wx-dong.jpg">
+	            &nbsp;微信：jxmwlkj&nbsp;&nbsp;点击查看二维码&nbsp;&nbsp;<img width="25" height="25" src="~/Content/img/wx-dong-50x50.jpg" title="单击显示微信二维码大图" />
+	        </a>
+	        <a id="adHide" style="padding-left: 30px;" href="#"><img src="~/Content/img/x.png" width="15" height="15" /></a>
+	    </div>*@
+	    @if (currentPath.ToLower().Contains("/str/") || currentPath.ToLower().EndsWith("/str"))
+	    {
+	        <div style="padding-left: 50px; padding-bottom: 8px; font-size: 18px;">
+	            <span style="color:blue">文本处理工具Windows电脑免费版已发布！</span>
+	            <a style="padding-left:5px" href="http://txt.haooyou.com/html/free-preview.html" target="_blank">软件界面预览</a>
+	            <a style="padding-left:15px" href="http://txt.haooyou.com/html/dl.html" target="_blank">下载地址</a>
+	        </div>
+	    }
+	</div>
+
+        <div class="header">
+            <div><a href="/"><img src="~/Content/img/logo.png" alt="好优工具" title="好优工具" /></a></div>
+            <div class="header-title">
+                @ViewBag.ContentTitle
+                @if (ViewBag.ShowJiaocheng != null && ViewBag.ShowJiaocheng)
+                {
+                    <span><a class="header-jiaocheng" data-toggle="modal" data-target="#myModal">使用教程</a></span>
+                }
+            </div>
+        </div>
+        @RenderBody()
+        @*@if (ViewBag.ShowBrowserInfo != null && ViewBag.ShowBrowserInfo && Request.Browser.Browser.Equals("IE", StringComparison.OrdinalIgnoreCase))
+        {
+            <div class="browser" id="browser">
+                <p class="browser-info">
+                    <b>友情提醒：</b>您的浏览器输入数据过多可能会卡死！推荐使用火狐、谷歌、搜狗或360的极速模式，处理百万行数据无压力。
+                </p>
+            </div>
+        }*@
+        <div style="height: 20px"></div>
+        <footer class="footer">
+            <div align="center">
+                <p>
+                    <!--<span>&copy; Company 2016</span>-->
+                    <span>
+                        <span style="color: red">
+                            声明：本网站仅为软件开发者提供测试工具，请勿输入任何隐私信息，请勿用于其他用途！<br />
+                            由于其他用途所产生的一切后果本站概不负责，使用即代表你同意本声明！<br />
+                        </span>
+                        本站开源地址：<a href="https://github.com/morilong/ToolsWebApp" target="_blank">github</a>，仅供学习交流。
+                        @*<br />
+                            备用地址：tool2.haooyou.com，技术交流QQ：&#53;&#56;&#50;&#55;&#57;&#56;&#56;&#55;*@
+                    </span>
+                    <span><a href="/">首页</a></span>@RenderSection("FooterLinks", false)<br />
+                    <span><a href="http://www.beian.miit.gov.cn" target="_blank" style="color: #808080;">粤ICP备11054279号</a></span>
+                    <!--<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257841365'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257841365%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>-->
+                </p>
+            </div>
+            <script>
+                var _hmt = _hmt || [];
+                (function () {
+                    var hm = document.createElement("script");
+                    hm.src = "//hm.baidu.com/hm.js?33c47d5a325b83605241b38719641d79";
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
+        </footer>
+    </div>
+    @if (ViewBag.ShowJiaocheng != null && ViewBag.ShowJiaocheng)
+    {
+        <!-- modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">@ViewBag.ContentTitle 使用教程</h4>
+                    </div>
+                    <div class="modal-body">
+                        @RenderSection("JiaochengBody", false)
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+        </div>
+        <!-- / modal -->
+    }
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!--[if lte IE 6]>
+        <script src="~/Content/Bootstrap/js/bootstrap-ie.js"></script>
+    <![endif]-->
+    <script src="~/Content/Bootstrap/js/jquery.placeholder.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('input, textarea').placeholder();
+        });
+        $("#adHide").click(function () {
+            $("#divAdText").hide();
+        });
+    </script>
+    @RenderSection("FootJs", false)
+</body>
+</html>
